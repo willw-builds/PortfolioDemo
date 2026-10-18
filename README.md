@@ -1,16 +1,17 @@
 # Will — personal portfolio
 
-A lightweight, responsive portfolio built for GitHub Pages. There is no build step or framework.
+A lightweight, responsive editorial portfolio built for GitHub Pages. There is no build step or framework.
 
 ## Personalize the content
 
-Edit `content.js` to update the public name, contact link, positioning, biography, and project cards. The starting copy intentionally avoids unsupported claims about experience or achievements.
+Edit `content.js` to update the public name, contact link, positioning, background, experience, projects, and notes. Placeholder entries are explicitly marked so they can be replaced without hunting through the page markup.
 
 For deeper edits:
 
 - `index.html` controls the page structure and static copy.
 - `styles.css` contains the visual system and responsive layout.
 - `script.js` renders the editable content and subtle reveal motion.
+- `assets/will-avatar.png` is the privacy-preserving illustrated portrait.
 - `assets/favicon.svg` is the browser icon.
 
 ## Preview locally
