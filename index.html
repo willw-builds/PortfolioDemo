@@ -3,159 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Will's portfolio — thoughtful digital work, experiments, and things in progress."
-    />
-    <meta name="theme-color" content="#f2efe7" />
-    <meta property="og:title" content="Will — Product-minded builder" />
-    <meta
-      property="og:description"
-      content="A growing portfolio of thoughtful digital work."
-    />
+    <meta name="description" content="Will W. — a product-minded developer building practical web experiences and AI-powered prototypes." />
+    <meta name="theme-color" content="#f2eee3" />
+    <meta property="og:title" content="Will W. — Product-minded developer" />
+    <meta property="og:description" content="Practical web experiences, AI-powered prototypes, and a growing body of work." />
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="content.js" defer></script>
-    <script src="script.js?v=2" defer></script>
-    <title>Will — Product-minded builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=3" />
+    <script src="content.js?v=3" defer></script>
+    <script src="script.js?v=3" defer></script>
+    <title>Will W. — Product-minded developer</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="site-header" aria-label="Primary navigation">
-      <a class="wordmark" href="#top" aria-label="Will, home">
-        <span class="wordmark-mark" aria-hidden="true">W</span>
-        <span data-name>Will</span>
+    <header class="site-header">
+      <a class="brand" href="#hero" aria-label="Will W., home">
+        <span class="brand-mark" aria-hidden="true">WW</span>
+        <span data-name>Will W.</span>
       </a>
-
-      <nav class="nav-links" aria-label="Portfolio sections">
-        <a href="#work">Work</a>
+      <nav aria-label="Primary navigation">
         <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#notes">Notes</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-title">
+      <section class="hero section-shell" id="hero" aria-labelledby="hero-title">
         <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span><span data-status>Portfolio in progress</span></p>
-          <h1 id="hero-title">
-            Building useful things<br />
-            <span class="hero-emphasis">with care and curiosity.</span>
-          </h1>
-          <p class="hero-intro" data-intro>
-            I’m Will, a product-minded builder exploring the space between
-            ideas, design, and technology.
-          </p>
+          <p class="status"><span aria-hidden="true"></span><span data-status>Building in public</span></p>
+          <p class="hero-overline" data-title>Product-minded developer</p>
+          <h1 id="hero-title" data-name>Will W.</h1>
+          <p class="hero-summary" data-tagline>Building practical web experiences and AI-powered prototypes.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
-            <a class="text-link" href="#about">A little about me <span aria-hidden="true">→</span></a>
+            <a class="button button-dark" href="#projects">See what I’m building <span aria-hidden="true">↘</span></a>
+            <a class="text-link" data-github-link href="https://github.com/willw-builds" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
 
-        <div class="hero-visual reveal" aria-hidden="true">
-          <div class="orbital-field">
-            <span class="orbit orbit-one"></span>
-            <span class="orbit orbit-two"></span>
-            <span class="orbit orbit-three"></span>
-            <span class="core">W</span>
-            <span class="satellite satellite-one"></span>
-            <span class="satellite satellite-two"></span>
-            <span class="coordinate">40.7° N<br />74.0° W</span>
+        <figure class="portrait-stage reveal">
+          <div class="portrait-shape" aria-hidden="true"></div>
+          <div class="portrait-grid" aria-hidden="true"></div>
+          <img src="assets/will-avatar.png" alt="Illustrated portrait of Will wearing a coral beanie and glasses" width="1145" height="1374" />
+          <figcaption>Illustrated for privacy <span>•</span> Still unmistakably me</figcaption>
+        </figure>
+      </section>
+
+      <section class="about section-pad" id="about" aria-labelledby="about-title">
+        <div class="section-shell two-column">
+          <div class="section-heading reveal">
+            <p class="section-label">About</p>
+            <h2 id="about-title">Background</h2>
           </div>
-        </div>
-
-        <p class="scroll-note" aria-hidden="true">Scroll to explore <span>↓</span></p>
-      </section>
-
-      <section class="work-section" id="work" aria-labelledby="work-title">
-        <div class="section-heading reveal">
-          <p class="section-index">01 / Selected work</p>
-          <h2 id="work-title">The shelf is ready.<br /><span>Your projects go here.</span></h2>
-          <p>
-            This portfolio is being built in public. The first case studies will
-            appear here as they become ready to share.
-          </p>
-        </div>
-
-        <div class="project-grid" id="project-grid" aria-live="polite"></div>
-      </section>
-
-      <section class="principles-section" aria-labelledby="principles-title">
-        <div class="section-heading compact reveal">
-          <p class="section-index">02 / How I approach work</p>
-          <h2 id="principles-title">Simple principles,<br /><span>serious intent.</span></h2>
-        </div>
-
-        <div class="principles-grid">
-          <article class="principle reveal">
-            <span class="principle-number">01</span>
-            <h3>Start with the problem</h3>
-            <p>Understand the real need before reaching for a tool or a polished answer.</p>
-          </article>
-          <article class="principle reveal">
-            <span class="principle-number">02</span>
-            <h3>Make ideas tangible</h3>
-            <p>Turn loose thinking into something people can see, test, and respond to.</p>
-          </article>
-          <article class="principle reveal">
-            <span class="principle-number">03</span>
-            <h3>Keep learning in the loop</h3>
-            <p>Treat each project as a chance to sharpen the craft and improve the next one.</p>
-          </article>
+          <div class="story-copy reveal" id="about-copy"></div>
         </div>
       </section>
 
-      <section class="about-section" id="about" aria-labelledby="about-title">
-        <div class="about-label reveal">
-          <p class="section-index">03 / About</p>
-          <div class="portrait-placeholder" aria-hidden="true">
-            <span>W</span>
+      <section class="experience section-pad" id="experience" aria-labelledby="experience-title">
+        <div class="section-shell">
+          <div class="section-heading light reveal">
+            <p class="section-label">Work</p>
+            <h2 id="experience-title">Experience</h2>
+            <p class="section-note">A clear timeline for the work that shaped how you think.</p>
           </div>
-        </div>
-
-        <div class="about-copy reveal">
-          <h2 id="about-title">A work in progress,<br /><span>by design.</span></h2>
-          <p class="about-lead" data-about>
-            I’m building a body of work around thoughtful digital products and
-            practical experiments. This site is a living record of what I make,
-            what I learn, and how my point of view develops along the way.
-          </p>
-          <p>
-            The details will get sharper with every project. For now, the focus
-            is simple: make useful work, explain it clearly, and keep moving.
-          </p>
+          <div class="timeline" id="experience-list"></div>
         </div>
       </section>
 
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
-        <p class="section-index reveal">04 / Contact</p>
-        <div class="contact-content reveal">
-          <h2 id="contact-title">Have an interesting idea?</h2>
-          <a
-            class="contact-link"
-            data-contact-link
-            href="https://github.com/willw-builds"
-            target="_blank"
-            rel="noreferrer"
-          >
-            View my GitHub <span aria-hidden="true">↗</span>
-          </a>
+      <section class="projects section-pad" id="projects" aria-labelledby="projects-title">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <p class="section-label">Building</p>
+            <h2 id="projects-title">Selected projects</h2>
+            <p class="section-note">Learning by making, documenting, and shipping.</p>
+          </div>
+          <div class="project-list" id="project-list"></div>
+        </div>
+      </section>
+
+      <section class="notes section-pad" id="notes" aria-labelledby="notes-title">
+        <div class="section-shell two-column">
+          <div class="section-heading reveal">
+            <p class="section-label">Thinking</p>
+            <h2 id="notes-title">Notes</h2>
+            <p class="section-note">Ideas, lessons, and things worth remembering.</p>
+          </div>
+          <div class="notes-list reveal" id="notes-list"></div>
+        </div>
+      </section>
+
+      <section class="contact section-pad" id="contact" aria-labelledby="contact-title">
+        <div class="section-shell contact-inner reveal">
+          <p class="section-label">Say hello</p>
+          <h2 id="contact-title">Let’s build something<br /><em>worth sharing.</em></h2>
+          <p>I’m open to thoughtful conversations about product, the web, AI, and interesting work.</p>
+          <a class="button button-light" data-github-link href="https://github.com/willw-builds" target="_blank" rel="noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> <span data-name>Will</span></p>
-      <p>Designed with intention. Built to evolve.</p>
-      <a href="#top">Back to top ↑</a>
+      <p>© <span id="year"></span> <span data-name>Will W.</span></p>
+      <p>Built carefully. Kept human.</p>
+      <a href="#hero">Back to top ↑</a>
     </footer>
   </body>
 </html>
