@@ -4,7 +4,8 @@
 */
 window.PORTFOLIO_CONTENT = {
   name: "Will",
-  email: "willwiw99@gmail.com",
+  contactLabel: "View my GitHub",
+  contactUrl: "https://github.com/willw-builds",
   status: "Portfolio in progress",
   intro:
     "I’m Will, a product-minded builder exploring the space between ideas, design, and technology.",
