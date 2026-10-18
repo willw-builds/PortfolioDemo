@@ -4,7 +4,7 @@ A lightweight, responsive portfolio built for GitHub Pages. There is no build st
 
 ## Personalize the content
 
-Edit `content.js` to update the public name, email, positioning, biography, and project cards. The starting copy intentionally avoids unsupported claims about experience or achievements.
+Edit `content.js` to update the public name, contact link, positioning, biography, and project cards. The starting copy intentionally avoids unsupported claims about experience or achievements.
 
 For deeper edits:
 
