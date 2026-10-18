@@ -8,11 +8,6 @@ document.querySelector("[data-status]").textContent = content.status;
 document.querySelector("[data-intro]").textContent = content.intro;
 document.querySelector("[data-about]").textContent = content.about;
 
-const contactLink = document.querySelector("[data-contact-link]");
-contactLink.href = content.contactUrl;
-contactLink.childNodes[0].textContent = `${content.contactLabel} `;
-contactLink.setAttribute("aria-label", `${content.contactLabel} (opens in a new tab)`);
-
 const projectGrid = document.querySelector("#project-grid");
 projectGrid.innerHTML = content.projects
   .map(
