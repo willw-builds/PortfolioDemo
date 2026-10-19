@@ -38,6 +38,16 @@ document.querySelector("#project-list").innerHTML = content.projects
     </article>`)
   .join("");
 
+document.querySelector("#agent-list").innerHTML = content.agents
+  .map((agent, index) => `
+    <article class="agent-card reveal${agent.adapted ? " is-adapted" : ""}">
+      <div class="agent-card-top"><span>0${index + 1}</span><strong>${agent.authorship}</strong></div>
+      <h3>${agent.title}</h3>
+      <p>${agent.description}</p>
+      <div class="agent-capabilities">${agent.capabilities.map((item) => `<span>${item}</span>`).join("")}</div>
+    </article>`)
+  .join("");
+
 document.querySelector("#notes-list").innerHTML = content.notes
   .map((note) => `
     <a class="note-item${note.placeholder ? " is-placeholder" : ""}" href="${note.url}">
