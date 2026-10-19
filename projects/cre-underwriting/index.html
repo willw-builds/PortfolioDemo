@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive, transparent commercial real estate underwriting prototype by Will W." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/project.css?v=1" />
+    <script src="workbench.js?v=1" defer></script>
+    <title>CRE Underwriting Workbench — Will W.</title>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../index.html#projects">← Back to portfolio</a>
+      <span class="prototype-pill">Interactive prototype</span>
+    </header>
+
+    <main>
+      <section class="project-hero">
+        <div>
+          <p class="eyebrow">Finance workflow 01</p>
+          <h1>CRE Underwriting Workbench</h1>
+        </div>
+        <div class="hero-note">
+          <p><strong>From assumptions to an auditable five-year view.</strong> Explore a synthetic multifamily acquisition, change the drivers, and see every metric update instantly.</p>
+          <p class="source-note">Metric definitions follow the OCC’s descriptions of <a href="https://www.occ.treas.gov/publications-and-resources/publications/comptrollers-handbook/files/commercial-real-estate-lending/pub-ch-commercial-real-estate.pdf" target="_blank" rel="noreferrer">DSCR, debt yield, and income-based valuation</a>.</p>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Underwriting model">
+        <aside class="control-panel">
+          <div class="panel-head"><div><h2>Assumptions</h2><p>All inputs are synthetic and editable. Nothing leaves your browser.</p></div></div>
+          <form id="assumptions">
+            <div class="input-section">
+              <h3>Acquisition</h3>
+              <div class="input-grid">
+                <div class="field full"><label for="purchasePrice">Purchase price</label><div class="field-wrap"><span>$</span><input id="purchasePrice" name="purchasePrice" type="number" min="1" step="50000" value="6800000" /></div></div>
+                <div class="field"><label for="units">Units</label><div class="field-wrap"><input id="units" name="units" type="number" min="1" value="42" /></div></div>
+                <div class="field"><label for="holdYears">Hold period</label><div class="field-wrap"><input id="holdYears" name="holdYears" type="number" min="1" max="10" value="5" /><span>yrs</span></div></div>
+              </div>
+            </div>
+            <div class="input-section">
+              <h3>Operations — Year 1</h3>
+              <div class="input-grid">
+                <div class="field full"><label for="grossPotentialRent">Gross potential rent</label><div class="field-wrap"><span>$</span><input id="grossPotentialRent" name="grossPotentialRent" type="number" min="0" step="5000" value="720000" /></div></div>
+                <div class="field"><label for="vacancy">Vacancy</label><div class="field-wrap"><input id="vacancy" name="vacancy" type="number" min="0" max="100" step="0.25" value="5" /><span>%</span></div></div>
+                <div class="field"><label for="otherIncome">Other income</label><div class="field-wrap"><span>$</span><input id="otherIncome" name="otherIncome" type="number" min="0" step="1000" value="30000" /></div></div>
+                <div class="field full"><label for="operatingExpenses">Operating expenses</label><div class="field-wrap"><span>$</span><input id="operatingExpenses" name="operatingExpenses" type="number" min="0" step="5000" value="270000" /></div></div>
+                <div class="field"><label for="rentGrowth">Annual income growth</label><div class="field-wrap"><input id="rentGrowth" name="rentGrowth" type="number" step="0.1" value="3" /><span>%</span></div></div>
+                <div class="field"><label for="expenseGrowth">Annual expense growth</label><div class="field-wrap"><input id="expenseGrowth" name="expenseGrowth" type="number" step="0.1" value="2.5" /><span>%</span></div></div>
+              </div>
+            </div>
+            <div class="input-section">
+              <h3>Debt and exit</h3>
+              <div class="input-grid">
+                <div class="field"><label for="ltv">Loan-to-value</label><div class="field-wrap"><input id="ltv" name="ltv" type="number" min="0" max="100" step="1" value="65" /><span>%</span></div></div>
+                <div class="field"><label for="interestRate">Interest rate</label><div class="field-wrap"><input id="interestRate" name="interestRate" type="number" min="0" step="0.05" value="6.25" /><span>%</span></div></div>
+                <div class="field"><label for="amortizationYears">Amortization</label><div class="field-wrap"><input id="amortizationYears" name="amortizationYears" type="number" min="1" max="40" value="30" /><span>yrs</span></div></div>
+                <div class="field"><label for="exitCap">Exit cap rate</label><div class="field-wrap"><input id="exitCap" name="exitCap" type="number" min="0.1" step="0.05" value="6.25" /><span>%</span></div></div>
+                <div class="field"><label for="saleCosts">Sale costs</label><div class="field-wrap"><input id="saleCosts" name="saleCosts" type="number" min="0" max="20" step="0.25" value="2" /><span>%</span></div></div>
+                <div class="field"><label for="annualCapex">Annual capital reserve</label><div class="field-wrap"><span>$</span><input id="annualCapex" name="annualCapex" type="number" min="0" step="1000" value="42000" /></div></div>
+              </div>
+            </div>
+            <div class="action-row"><button class="button" type="submit">Run underwriting ↗</button><button class="button secondary" id="resetModel" type="button">Reset sample</button></div>
+          </form>
+          <div class="callout"><strong>Educational prototype.</strong> This simplified model excludes taxes, acquisition costs, fees, lease-level timing, and lender-specific definitions. It is not investment advice or a substitute for professional underwriting.</div>
+        </aside>
+
+        <div class="results-panel" aria-live="polite">
+          <div class="panel-head"><div><h2>Investment view</h2><p id="modelStatus">Synthetic 42-unit multifamily scenario.</p></div><button class="button secondary" id="downloadBrief" type="button">Download brief</button></div>
+          <div class="metric-grid">
+            <div class="metric-card"><span>Year 1 NOI</span><strong id="noiMetric">—</strong><small>Effective income − operating expenses</small></div>
+            <div class="metric-card"><span>Going-in cap</span><strong id="capMetric">—</strong><small>NOI ÷ purchase price</small></div>
+            <div class="metric-card"><span>DSCR</span><strong id="dscrMetric">—</strong><small>NOI ÷ annual debt service</small></div>
+            <div class="metric-card"><span>Debt yield</span><strong id="debtYieldMetric">—</strong><small>NOI ÷ loan amount</small></div>
+            <div class="metric-card"><span>Levered IRR</span><strong id="irrMetric">—</strong><small>Annual equity cash flows</small></div>
+            <div class="metric-card"><span>Equity multiple</span><strong id="emMetric">—</strong><small>Total distributions ÷ initial equity</small></div>
+            <div class="metric-card"><span>Loan amount</span><strong id="loanMetric">—</strong><small>Purchase price × LTV</small></div>
+            <div class="metric-card"><span>Annual debt service</span><strong id="debtServiceMetric">—</strong><small>Monthly amortizing payment × 12</small></div>
+          </div>
+
+          <section class="result-section"><h3>Five-year cash flow</h3><div class="table-wrap"><table><thead><tr><th>Year</th><th>Effective income</th><th>Expenses</th><th>NOI</th><th>Debt service</th><th>Equity cash flow</th></tr></thead><tbody id="cashFlowRows"></tbody></table></div><p class="formula-note">The final year includes net sale proceeds after sale costs and remaining loan balance.</p></section>
+          <section class="result-section"><h3>Exit-cap / growth sensitivity</h3><div class="table-wrap"><table class="sensitivity"><thead id="sensitivityHead"></thead><tbody id="sensitivityBody"></tbody></table></div><p class="formula-note">Cells show levered IRR. Rows vary exit cap rate; columns vary annual income growth.</p></section>
+        </div>
+      </section>
+    </main>
+    <footer class="project-footer"><span>Built by Will W. as a transparent finance workflow prototype.</span><a href="../../index.html#projects">Portfolio ↗</a></footer>
+  </body>
+</html>
