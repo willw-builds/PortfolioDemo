@@ -13,6 +13,18 @@ For deeper edits:
 - `script.js` renders the editable content and subtle reveal motion.
 - `assets/will-avatar.png` is the privacy-preserving illustrated portrait.
 - `assets/favicon.svg` is the browser icon.
+- `projects/cre-underwriting/` contains the interactive CRE Underwriting Workbench.
+- `projects/model-qa/` contains the browser-local Financial Model QA Agent prototype.
+- `projects/shared/project.css` provides the shared visual system for both prototypes.
+
+## Analyst Workflow Lab
+
+The first two portfolio projects form a small **Build → Review** workflow:
+
+1. **CRE Underwriting Workbench** builds an auditable five-year acquisition case from synthetic assumptions, including debt metrics, returns, and sensitivity analysis.
+2. **Financial Model QA Agent** reviews spreadsheet structure for formula errors, gaps, pattern breaks, hard-coded assumptions, and percentage anomalies.
+
+Both are educational prototypes. The underwriting model uses synthetic inputs and the QA tool produces review signals rather than financial, investment, or model-certification advice. Uploaded workbooks are processed in the browser and are not sent to a server by this project.
 
 ## Preview locally
 
