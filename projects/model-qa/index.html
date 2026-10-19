@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A privacy-preserving financial model QA prototype by Will W." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/project.css?v=1" />
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+    <script src="qa.js?v=1" defer></script>
+    <title>Financial Model QA Agent — Will W.</title>
+  </head>
+  <body>
+    <header class="app-header"><a class="back-link" href="../../index.html#projects">← Back to portfolio</a><span class="prototype-pill">Browser-local prototype</span></header>
+    <main>
+      <section class="project-hero">
+        <div><p class="eyebrow">Finance workflow 02</p><h1>Financial Model QA Agent</h1></div>
+        <div class="hero-note"><p><strong>Direct attention to the cells most worth reviewing.</strong> The agent applies deterministic spreadsheet checks and explains every finding with cell-level evidence.</p><p class="source-note">Workbooks are parsed locally in your browser. Files are not uploaded, transmitted, or retained.</p></div>
+      </section>
+
+      <section class="workspace" aria-label="Financial model QA workspace">
+        <aside class="control-panel">
+          <div class="panel-head"><div><h2>Workbook</h2><p>Use the seeded sample or inspect an `.xlsx`, `.xls`, or `.csv` file up to 5 MB.</p></div></div>
+          <label class="drop-zone" id="dropZone" for="workbookFile">
+            <input id="workbookFile" type="file" accept=".xlsx,.xls,.csv" />
+            <strong>Drop a workbook here</strong>
+            <p>Analysis stays on this device. Macros are never executed.</p>
+            <span class="file-name" id="fileName">No workbook selected</span>
+          </label>
+          <div class="action-row"><button class="button" id="sampleButton" type="button">Analyze sample model ↗</button><button class="button secondary" id="clearButton" type="button">Clear</button></div>
+
+          <div class="input-section">
+            <h3>Review settings</h3>
+            <div class="input-grid">
+              <div class="field full"><label><input class="qa-toggle" type="checkbox" value="errors" checked /> Formula and error tokens</label></div>
+              <div class="field full"><label><input class="qa-toggle" type="checkbox" value="gaps" checked /> Missing formulas and hard-codes</label></div>
+              <div class="field full"><label><input class="qa-toggle" type="checkbox" value="patterns" checked /> Formula-pattern inconsistencies</label></div>
+              <div class="field full"><label><input class="qa-toggle" type="checkbox" value="constants" checked /> Suspicious numeric literals</label></div>
+              <div class="field full"><label><input class="qa-toggle" type="checkbox" value="percentages" checked /> Percentage magnitude anomalies</label></div>
+            </div>
+          </div>
+          <div class="callout"><strong>Human review remains essential.</strong> This tool checks model structure; it does not recalculate Excel, validate business assumptions, certify accuracy, or replace professional review.</div>
+        </aside>
+
+        <div class="results-panel" aria-live="polite">
+          <div class="panel-head"><div><h2>QA findings</h2><p id="qaStatus">Load the sample model or choose a workbook to begin.</p></div><button class="button secondary" id="exportReport" type="button" disabled>Export report</button></div>
+          <div class="qa-summary">
+            <div class="metric-card"><span>Sheets</span><strong id="sheetCount">—</strong><small>Reviewed worksheets</small></div>
+            <div class="metric-card"><span>Formula cells</span><strong id="formulaCount">—</strong><small>Structural review scope</small></div>
+            <div class="metric-card"><span>High priority</span><strong class="negative" id="highCount">—</strong><small>Likely broken calculation</small></div>
+            <div class="metric-card"><span>Review signals</span><strong id="findingCount">—</strong><small>All flagged items</small></div>
+          </div>
+          <section class="result-section"><h3>Issue register</h3><div class="table-wrap"><table><thead><tr><th>Severity</th><th>Sheet</th><th>Cell</th><th>Check</th><th>Evidence</th><th>Suggested review</th></tr></thead><tbody id="issueRows"><tr><td class="empty-state" colspan="6">No model has been analyzed yet.</td></tr></tbody></table></div></section>
+          <section class="result-section"><h3>What the agent checks</h3><div class="metric-grid">
+            <div class="metric-card"><span>01</span><strong>Error references</strong><small>#REF!, #DIV/0!, #VALUE!, and related tokens.</small></div>
+            <div class="metric-card"><span>02</span><strong>Broken patterns</strong><small>Formula gaps and inconsistent copied formulas.</small></div>
+            <div class="metric-card"><span>03</span><strong>Risky hard-codes</strong><small>Constants inside formula-driven ranges and formulas.</small></div>
+            <div class="metric-card"><span>04</span><strong>Magnitude signals</strong><small>Potential percentage scaling and divide-by-zero issues.</small></div>
+          </div></section>
+        </div>
+      </section>
+    </main>
+    <footer class="project-footer"><span>Built by Will W. as a deterministic, evidence-first QA prototype.</span><a href="../cre-underwriting/index.html">Open the underwriting workbench ↗</a></footer>
+  </body>
+</html>
