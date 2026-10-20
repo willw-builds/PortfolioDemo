@@ -5,20 +5,20 @@
 window.PORTFOLIO_CONTENT = {
   name: "Will W.",
   status: "Building practical finance tools",
-  title: "Real estate strategy, analytics & product",
-  tagline: "I turn complex real estate, valuation, and portfolio questions into clear recommendations, useful tools, and coordinated execution.",
+  title: "Portfolio strategy, analytics & product",
+  tagline: "I turn complex portfolio, valuation, and financial workflow questions into clear recommendations, useful tools, and coordinated execution.",
   githubUrl: "https://github.com/willw-builds",
 
   about: [
-    "I work at the intersection of real estate, finance, analytics, and product management. Over the past eight years, I’ve helped teams turn portfolio data, valuation questions, and market research into clearer product and business decisions.",
-    "I’m now using that experience to build practical tools for real estate and finance professionals. The projects on this site show how I think: start with a real workflow problem, make the logic clear, and build something people can test for themselves.",
+    "I work at the intersection of portfolio strategy, private markets, financial technology, and product management. Over the past eight years, I’ve helped teams turn portfolio data, valuation questions, and market research into clearer product and business decisions.",
+    "I’m now using that experience to build practical tools for finance and investment professionals. The projects on this site show how I think: start with a real workflow problem, make the logic clear, and build something people can test for themselves.",
   ],
 
   experience: [
     {
-      label: "Real estate and valuation",
+      label: "Real assets and valuation",
       title: "Built from hands-on analytical work",
-      summary: "My background covers real estate valuation, portfolio management, investment analytics, and strategy work across private markets and professional services.",
+      summary: "My background covers valuation, portfolio management, investment analytics, and strategy work across real assets, private markets, and professional services.",
     },
     {
       label: "Product management",
@@ -37,7 +37,7 @@ window.PORTFOLIO_CONTENT = {
       status: "Live prototype · Build",
       title: "CRE Underwriting Workbench",
       description: "An auditable acquisition model that turns synthetic property assumptions into NOI, debt metrics, five-year cash flows, returns, and sensitivity analysis.",
-      tags: ["CRE", "Underwriting", "Scenario modeling", "Vanilla JS"],
+      tags: ["Real assets", "Underwriting", "Scenario modeling", "Vanilla JS"],
       primaryLabel: "Open workbench",
       primaryUrl: "projects/cre-underwriting/",
       secondaryLabel: "View source",
