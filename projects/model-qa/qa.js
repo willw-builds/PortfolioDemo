@@ -3,6 +3,7 @@ const dropZone = document.querySelector("#dropZone");
 const issueRows = document.querySelector("#issueRows");
 const errorTokens = ["#REF!", "#DIV/0!", "#VALUE!", "#NAME?", "#N/A", "#NUM!"];
 let currentReport = null;
+let currentModel = null;
 
 function columnLabel(index) {
   let label = "";
@@ -12,6 +13,9 @@ function columnLabel(index) {
 }
 
 function cellAddress(row, column) { return `${columnLabel(column)}${row + 1}`; }
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+}
 function columnIndex(label) {
   return [...label].reduce((total, letter) => total * 26 + letter.charCodeAt(0) - 64, 0) - 1;
 }
@@ -28,8 +32,11 @@ function activeChecks() { return new Set([...document.querySelectorAll(".qa-togg
 function sampleWorkbook() {
   return {
     name: "Atlas Components — seeded QA sample",
+    sourceType: "Seeded demo",
     sheets: [{
       name: "Operating",
+      originRow: 0,
+      originColumn: 0,
       rows: [
         ["Metric", "2026", "2027", "2028", "2029", "2030"],
         ["Revenue", 1000, { f: "B2*(1+0.05)", v: 1050 }, { f: "C2*(1+0.05)", v: 1102.5 }, { f: "D2*1.12", v: 1234.8 }, { f: "E2*(1+0.05)", v: 1296.5 }],
@@ -40,6 +47,8 @@ function sampleWorkbook() {
       ],
     }, {
       name: "Returns",
+      originRow: 0,
+      originColumn: 0,
       rows: [
         ["Metric", "Value"],
         ["Entry EV", 4200],
@@ -53,20 +62,20 @@ function sampleWorkbook() {
 function parseSheetJsWorkbook(workbook, fileName) {
   const sheets = workbook.SheetNames.map((name) => {
     const sheet = workbook.Sheets[name];
-    if (!sheet["!ref"]) return { name, rows: [] };
+    if (!sheet["!ref"]) return { name, rows: [], originRow: 0, originColumn: 0 };
     const range = XLSX.utils.decode_range(sheet["!ref"]);
     const rows = [];
     for (let row = range.s.r; row <= range.e.r; row += 1) {
       const cells = [];
       for (let col = range.s.c; col <= range.e.c; col += 1) {
         const raw = sheet[XLSX.utils.encode_cell({ r: row, c: col })];
-        cells.push(raw ? { v: raw.v, f: raw.f, z: raw.z, t: raw.t } : null);
+        cells.push(raw ? { v: raw.v, f: raw.f, z: raw.z, t: raw.t, w: raw.w } : null);
       }
       rows.push(cells);
     }
-    return { name, rows };
+    return { name, rows, originRow: range.s.r, originColumn: range.s.c };
   });
-  return { name: fileName, sheets };
+  return { name: fileName, sourceType: "Uploaded workbook", sheets };
 }
 
 function addFinding(findings, severity, category, sheet, cell, evidence, action) {
@@ -88,16 +97,20 @@ function inspect(model) {
         const value = typeof cell === "object" ? cell.v : cell;
         const formula = typeof cell === "object" ? cell.f : null;
         const format = typeof cell === "object" ? cell.z : null;
-        const address = cellAddress(rowIndex, colIndex);
+        const type = typeof cell === "object" ? cell.t : null;
+        const displayedValue = typeof cell === "object" ? cell.w : null;
+        const actualRow = rowIndex + (sheet.originRow || 0);
+        const actualColumn = colIndex + (sheet.originColumn || 0);
+        const address = cellAddress(actualRow, actualColumn);
         if (formula) formulas += 1;
 
-        if (enabled.has("errors") && errorTokens.some((token) => String(value).includes(token) || String(formula || "").includes(token))) {
+        if (enabled.has("errors") && errorTokens.some((token) => String(value).includes(token) || String(displayedValue || "").includes(token) || String(formula || "").includes(token))) {
           addFinding(findings, "High", "Formula error", sheet.name, address, `${formula ? `=${formula}` : value}`, "Repair the broken reference or error-producing calculation, then recalculate the workbook.");
         }
         if (enabled.has("errors") && formula && /\/\s*0(?:\D|$)/.test(formula)) {
           addFinding(findings, "High", "Divide by zero", sheet.name, address, `=${formula}`, "Verify the denominator and add an explicit error-handling rule if appropriate.");
         }
-        if (enabled.has("percentages") && format && format.includes("%") && typeof value === "number" && Math.abs(value) > 1) {
+        if (enabled.has("percentages") && type !== "e" && format && format.includes("%") && typeof value === "number" && Math.abs(value) > 1) {
           addFinding(findings, "High", "Percentage magnitude", sheet.name, address, `${value} formatted as ${format}`, "Confirm whether the input should be expressed as a decimal (for example, 0.05 rather than 5).");
         }
         if (enabled.has("constants") && formula) {
@@ -115,33 +128,36 @@ function inspect(model) {
           const cell = row[col];
           const hasFormula = cell && typeof cell === "object" && cell.f;
           if (enabled.has("gaps") && !hasFormula) {
-            addFinding(findings, "High", "Formula gap", sheet.name, cellAddress(rowIndex, col), cell == null ? "Blank inside formula run" : `Hard-coded value: ${typeof cell === "object" ? cell.v : cell}`, "Compare with adjacent periods and restore the expected formula or document the exception.");
+            addFinding(findings, "High", "Formula gap", sheet.name, cellAddress(rowIndex + (sheet.originRow || 0), col + (sheet.originColumn || 0)), cell == null ? "Blank inside formula run" : `Hard-coded value: ${typeof cell === "object" ? cell.v : cell}`, "Compare with adjacent periods and restore the expected formula or document the exception.");
           }
         }
         if (enabled.has("patterns")) {
           for (let col = start + 1; col < end; col += 1) {
             const left = row[col - 1]; const cell = row[col]; const right = row[col + 1];
             if (!left?.f || !cell?.f || !right?.f) continue;
-            const leftPattern = normalizeFormula(left.f, rowIndex, col - 1); const pattern = normalizeFormula(cell.f, rowIndex, col); const rightPattern = normalizeFormula(right.f, rowIndex, col + 1);
-            if (leftPattern === rightPattern && pattern !== leftPattern) addFinding(findings, "Medium", "Formula pattern", sheet.name, cellAddress(rowIndex, col), `=${cell.f}; neighbors follow ${leftPattern}`, "Review whether this period intentionally departs from the copied formula pattern.");
+            const actualRow = rowIndex + (sheet.originRow || 0);
+            const actualColumn = col + (sheet.originColumn || 0);
+            const leftPattern = normalizeFormula(left.f, actualRow, actualColumn - 1); const pattern = normalizeFormula(cell.f, actualRow, actualColumn); const rightPattern = normalizeFormula(right.f, actualRow, actualColumn + 1);
+            if (leftPattern === rightPattern && pattern !== leftPattern) addFinding(findings, "Medium", "Formula pattern", sheet.name, cellAddress(actualRow, actualColumn), `=${cell.f}; neighbors follow ${leftPattern}`, "Review whether this period intentionally departs from the copied formula pattern.");
           }
         }
       }
     });
   });
 
-  return { workbook: model.name, sheetCount: model.sheets.length, populated, formulas, findings };
+  return { workbook: model.name, sourceType: model.sourceType || "Workbook", sheetCount: model.sheets.length, populated, formulas, findings };
 }
 
 function render(report) {
   currentReport = report;
+  document.querySelector("#analysisSource").innerHTML = `<strong>Source:</strong> ${escapeHtml(report.sourceType)} · ${escapeHtml(report.workbook)}`;
   document.querySelector("#sheetCount").textContent = report.sheetCount;
   document.querySelector("#formulaCount").textContent = report.formulas;
   document.querySelector("#highCount").textContent = report.findings.filter((item) => item.severity === "High").length;
   document.querySelector("#findingCount").textContent = report.findings.length;
   document.querySelector("#qaStatus").textContent = `${report.workbook}: reviewed ${report.populated.toLocaleString()} populated cells. Findings are review signals, not a model certification.`;
   document.querySelector("#exportReport").disabled = false;
-  issueRows.innerHTML = report.findings.length ? report.findings.map((item) => `<tr><td><span class="severity ${item.severity.toLowerCase()}">${item.severity}</span></td><td>${item.sheet}</td><td><strong>${item.cell}</strong></td><td>${item.category}</td><td>${item.evidence}</td><td>${item.action}</td></tr>`).join("") : `<tr><td class="empty-state" colspan="6">No structural findings from the enabled checks. This does not prove the model is correct.</td></tr>`;
+  issueRows.innerHTML = report.findings.length ? report.findings.map((item) => `<tr><td><span class="severity ${item.severity.toLowerCase()}">${escapeHtml(item.severity)}</span></td><td>${escapeHtml(item.sheet)}</td><td><strong>${escapeHtml(item.cell)}</strong></td><td>${escapeHtml(item.category)}</td><td>${escapeHtml(item.evidence)}</td><td>${escapeHtml(item.action)}</td></tr>`).join("") : `<tr><td class="empty-state" colspan="6">No structural findings from the enabled checks. This does not prove the model is correct.</td></tr>`;
 }
 
 async function loadFile(file) {
@@ -152,7 +168,8 @@ async function loadFile(file) {
     if (typeof XLSX === "undefined") throw new Error("Spreadsheet parser unavailable");
     const data = await file.arrayBuffer();
     const workbook = XLSX.read(data, { type: "array", cellFormula: true, cellNF: true, cellText: true });
-    render(inspect(parseSheetJsWorkbook(workbook, file.name)));
+    currentModel = parseSheetJsWorkbook(workbook, file.name);
+    render(inspect(currentModel));
   } catch (error) {
     document.querySelector("#qaStatus").textContent = `Could not analyze this workbook: ${error.message}. Try the seeded sample.`;
   }
@@ -162,13 +179,17 @@ fileInput.addEventListener("change", () => loadFile(fileInput.files[0]));
 dropZone.addEventListener("dragover", (event) => { event.preventDefault(); dropZone.classList.add("is-dragging"); });
 dropZone.addEventListener("dragleave", () => dropZone.classList.remove("is-dragging"));
 dropZone.addEventListener("drop", (event) => { event.preventDefault(); dropZone.classList.remove("is-dragging"); loadFile(event.dataTransfer.files[0]); });
-document.querySelector("#sampleButton").addEventListener("click", () => { document.querySelector("#fileName").textContent = "Atlas Components — seeded sample"; render(inspect(sampleWorkbook())); });
+document.querySelector("#sampleButton").addEventListener("click", () => {
+  currentModel = sampleWorkbook();
+  document.querySelector("#fileName").textContent = "Atlas Components — seeded demo";
+  render(inspect(currentModel));
+});
 document.querySelector("#clearButton").addEventListener("click", () => {
-  fileInput.value = ""; currentReport = null; document.querySelector("#fileName").textContent = "No workbook selected"; document.querySelector("#qaStatus").textContent = "Load the sample model or choose a workbook to begin.";
+  fileInput.value = ""; currentReport = null; currentModel = null; document.querySelector("#fileName").textContent = "No workbook selected"; document.querySelector("#analysisSource").innerHTML = "<strong>Source:</strong> none selected"; document.querySelector("#qaStatus").textContent = "Load the seeded demo or choose a workbook to begin.";
   ["sheetCount", "formulaCount", "highCount", "findingCount"].forEach((id) => { document.querySelector(`#${id}`).textContent = "—"; });
   issueRows.innerHTML = `<tr><td class="empty-state" colspan="6">No model has been analyzed yet.</td></tr>`; document.querySelector("#exportReport").disabled = true;
 });
-document.querySelectorAll(".qa-toggle").forEach((toggle) => toggle.addEventListener("change", () => { if (document.querySelector("#fileName").textContent.includes("Atlas Components")) render(inspect(sampleWorkbook())); }));
+document.querySelectorAll(".qa-toggle").forEach((toggle) => toggle.addEventListener("change", () => { if (currentModel) render(inspect(currentModel)); }));
 document.querySelector("#exportReport").addEventListener("click", () => {
   if (!currentReport) return;
   const payload = JSON.stringify({ ...currentReport, disclaimer: "Structural QA signals only; human review required." }, null, 2);
