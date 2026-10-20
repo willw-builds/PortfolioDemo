@@ -195,6 +195,14 @@ h3 { font-size: clamp(1.7rem, 2.7vw, 2.5rem); letter-spacing: -0.035em; line-hei
 .timeline-detail ul { margin: 1.5rem 0 0; padding: 0; list-style: none; }
 .timeline-detail li { position: relative; margin: 0.7rem 0; padding-left: 1.25rem; color: #d6dae1; }
 .timeline-detail li::before { content: "—"; position: absolute; left: 0; color: var(--coral); }
+.credentials-heading { display: grid; grid-template-columns: 0.8fr 1.25fr; gap: clamp(2rem, 8vw, 8rem); margin-top: clamp(4rem, 8vw, 7rem); }
+.credentials-heading .section-label { margin: 0; }
+.credentials-heading h3 { max-width: 18ch; }
+.credentials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 2.5rem; border: 1px solid var(--light-line); background: var(--light-line); }
+.credential-card { min-height: 18rem; padding: clamp(1.5rem, 3vw, 2.4rem); background: var(--navy); }
+.credential-card > p { margin: 0 0 2rem; color: var(--coral); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.credential-card ul { margin: 0; padding: 0; list-style: none; }
+.credential-card li { padding: 0.8rem 0; border-top: 1px solid var(--light-line); color: #d6dae1; font-size: 0.84rem; }
 .is-placeholder { opacity: 0.74; }
 
 .projects { background: var(--paper-deep); }
@@ -245,9 +253,11 @@ h3 { font-size: clamp(1.7rem, 2.7vw, 2.5rem); letter-spacing: -0.035em; line-hei
   nav { width: 100%; overflow-x: auto; padding-bottom: 0.3rem; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .portrait-stage { width: min(100%, 32rem); min-height: 38rem; }
-  .two-column, .section-heading.light, .timeline-item { grid-template-columns: 1fr; }
+  .two-column, .section-heading.light, .timeline-item, .credentials-heading { grid-template-columns: 1fr; }
   .story-copy { padding-top: 0; }
   .agent-grid { grid-template-columns: 1fr; }
+  .credentials-grid { grid-template-columns: 1fr; }
+  .credential-card { min-height: auto; }
   .agent-card { min-height: auto; }
   .agent-card-top { margin-bottom: 2.5rem; }
 }
