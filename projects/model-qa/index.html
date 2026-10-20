@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../shared/project.css?v=1" />
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
-    <script src="qa.js?v=1" defer></script>
+    <script src="qa.js?v=2" defer></script>
     <title>Financial Model QA Agent — Will W.</title>
   </head>
   <body>
@@ -28,8 +28,9 @@
             <strong>Drop a workbook here</strong>
             <p>Analysis stays on this device. Macros are never executed.</p>
             <span class="file-name" id="fileName">No workbook selected</span>
+            <small class="formula-note">Selecting a file analyzes it immediately.</small>
           </label>
-          <div class="action-row"><button class="button" id="sampleButton" type="button">Analyze sample model ↗</button><button class="button secondary" id="clearButton" type="button">Clear</button></div>
+          <div class="action-row"><button class="button" id="sampleButton" type="button">Load seeded demo</button><button class="button secondary" id="clearButton" type="button">Clear</button></div>
 
           <div class="input-section">
             <h3>Review settings</h3>
@@ -45,7 +46,7 @@
         </aside>
 
         <div class="results-panel" aria-live="polite">
-          <div class="panel-head"><div><h2>QA findings</h2><p id="qaStatus">Load the sample model or choose a workbook to begin.</p></div><button class="button secondary" id="exportReport" type="button" disabled>Export report</button></div>
+          <div class="panel-head"><div><h2>QA findings</h2><p id="analysisSource"><strong>Source:</strong> none selected</p><p id="qaStatus">Load the seeded demo or choose a workbook to begin.</p></div><button class="button secondary" id="exportReport" type="button" disabled>Export report</button></div>
           <div class="qa-summary">
             <div class="metric-card"><span>Sheets</span><strong id="sheetCount">—</strong><small>Reviewed worksheets</small></div>
             <div class="metric-card"><span>Formula cells</span><strong id="formulaCount">—</strong><small>Structural review scope</small></div>
