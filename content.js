@@ -10,7 +10,7 @@ window.PORTFOLIO_CONTENT = {
   githubUrl: "https://github.com/willw-builds",
 
   about: [
-    "I work at the intersection of real estate, finance, analytics, and product. Over the past eight years, I’ve helped teams make sense of portfolio data, valuation questions, market research, and complex project work.",
+    "I work at the intersection of real estate, finance, analytics, and product management. Over the past eight years, I’ve helped teams turn portfolio data, valuation questions, and market research into clearer product and business decisions.",
     "I’m now using that experience to build practical tools for real estate and finance professionals. The projects on this site show how I think: start with a real workflow problem, make the logic clear, and build something people can test for themselves.",
   ],
 
@@ -21,14 +21,14 @@ window.PORTFOLIO_CONTENT = {
       summary: "My background covers real estate valuation, portfolio management, investment analytics, and strategy work across private markets and professional services.",
     },
     {
-      label: "Strategy and product",
-      title: "Comfortable across business and technical teams",
-      summary: "I’ve worked on real estate strategy, transformation roadmaps, portfolio reporting, and capital markets data products, including a brief product role at Equifax.",
+      label: "Product management",
+      title: "Connecting users, business, and technology",
+      summary: "I’ve worked on product strategy, roadmaps, portfolio reporting, and capital markets data products, including a brief product role at Equifax.",
     },
     {
       label: "How I work",
       title: "Clear analysis, steady follow-through",
-      summary: "I bring financial analysis, stakeholder coordination, executive communication, and enough technical depth to turn an idea into a working prototype.",
+      summary: "I bring financial analysis, stakeholder coordination, executive communication, and enough technical depth to turn a product idea into a working prototype.",
     },
   ],
 
@@ -72,18 +72,18 @@ window.PORTFOLIO_CONTENT = {
     {
       authorship: "Original system",
       title: "Daily + Weekly Review System",
-      description: "A set of evidence-first PM agents that turns meetings, commitments, backlog state, and calendar context into daily action queues and weekly accountability reviews.",
+      description: "A set of product management agents that turns meetings, commitments, backlog state, and calendar context into daily action queues and weekly accountability reviews.",
       capabilities: ["Action-item attribution", "Completion evidence", "Weekly planning", "Review guardrails"],
     },
     {
       authorship: "Original agent",
       title: "Portfolio Navigator",
-      description: "A portfolio-health agent for surfacing strategy alignment, cross-team dependencies, stalled work, and risks that are difficult to see from a single team view.",
+      description: "A product portfolio agent for surfacing strategy alignment, cross-team dependencies, stalled work, and risks that are difficult to see from a single team view.",
       capabilities: ["Strategy mapping", "Risk radar", "Dependency review", "Leadership briefing"],
     },
     {
       authorship: "Adapted toolkit",
-      title: "PM Workflow Agents",
+      title: "Product Workflow Agents",
       description: "Existing agent patterns I adapted and configured for context processing, inbox operations, and spec-to-PR workflows. Presented as adaptations rather than original inventions.",
       capabilities: ["Context processing", "Inbox triage", "Spec-to-PR", "Workflow configuration"],
       adapted: true,
