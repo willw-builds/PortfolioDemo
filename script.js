@@ -23,6 +23,14 @@ document.querySelector("#experience-list").innerHTML = content.experience
     </article>`)
   .join("");
 
+document.querySelector("#credentials-list").innerHTML = content.credentials
+  .map((group) => `
+    <article class="credential-card reveal">
+      <p>${group.label}</p>
+      <ul>${group.items.map((item) => `<li>${item}</li>`).join("")}</ul>
+    </article>`)
+  .join("");
+
 document.querySelector("#project-list").innerHTML = content.projects
   .map((project) => `
     <article class="project-row reveal${project.placeholder ? " is-placeholder" : ""}">
