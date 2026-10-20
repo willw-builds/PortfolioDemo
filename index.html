@@ -12,9 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=6" />
-    <script src="content.js?v=5" defer></script>
-    <script src="script.js?v=5" defer></script>
+    <link rel="stylesheet" href="styles.css?v=7" />
+    <script src="content.js?v=6" defer></script>
+    <script src="script.js?v=6" defer></script>
     <title>Will W. | Real estate strategy, analytics and product</title>
   </head>
   <body>
@@ -25,9 +25,9 @@
         <span data-name>Will W.</span>
       </a>
       <nav aria-label="Primary navigation">
+        <a href="#projects">Projects</a>
         <a href="#about">About</a>
         <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
         <a href="#agents">Agents</a>
         <a href="#notes">Notes</a>
         <a href="#contact">Contact</a>
@@ -54,6 +54,17 @@
         </figure>
       </section>
 
+      <section class="projects section-pad" id="projects" aria-labelledby="projects-title">
+        <div class="section-shell">
+          <div class="section-heading reveal">
+            <p class="section-label">Building</p>
+            <h2 id="projects-title">Selected projects</h2>
+            <p class="section-note">Practical tools for real estate, finance, and project work.</p>
+          </div>
+          <div class="project-list" id="project-list"></div>
+        </div>
+      </section>
+
       <section class="about section-pad" id="about" aria-labelledby="about-title">
         <div class="section-shell two-column">
           <div class="section-heading reveal">
@@ -68,26 +79,10 @@
         <div class="section-shell">
           <div class="section-heading light reveal">
             <p class="section-label">Work</p>
-            <h2 id="experience-title">Experience</h2>
-            <p class="section-note">Real estate strategy, valuation, portfolio analytics, and product work across private markets and professional services.</p>
+            <h2 id="experience-title">In brief</h2>
+            <p class="section-note">The short version of the experience behind the projects.</p>
           </div>
-          <div class="timeline" id="experience-list"></div>
-          <div class="credentials-heading reveal">
-            <p class="section-label">Foundations</p>
-            <h3>Education, credentials, and tools</h3>
-          </div>
-          <div class="credentials-grid" id="credentials-list"></div>
-        </div>
-      </section>
-
-      <section class="projects section-pad" id="projects" aria-labelledby="projects-title">
-        <div class="section-shell">
-          <div class="section-heading reveal">
-            <p class="section-label">Building</p>
-            <h2 id="projects-title">Selected projects</h2>
-            <p class="section-note">Learning by making, documenting, and shipping.</p>
-          </div>
-          <div class="project-list" id="project-list"></div>
+          <div class="experience-grid" id="experience-list"></div>
         </div>
       </section>
 
@@ -117,7 +112,7 @@
         <div class="section-shell contact-inner reveal">
           <p class="section-label">Say hello</p>
           <h2 id="contact-title">Let’s build something<br /><em>worth sharing.</em></h2>
-          <p>I’m open to thoughtful conversations about product, the web, AI, and interesting work.</p>
+          <p>I’m open to thoughtful conversations about real estate, finance, product, and useful tools.</p>
           <a class="button button-light" data-github-link href="https://github.com/willw-builds" target="_blank" rel="noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
         </div>
       </section>
