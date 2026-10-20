@@ -4,37 +4,89 @@
 */
 window.PORTFOLIO_CONTENT = {
   name: "Will W.",
-  status: "Building in public",
-  title: "Product-minded developer",
-  tagline: "Building practical web experiences and AI-powered prototypes. Learning in public, one useful project at a time.",
+  status: "Building practical finance tools",
+  title: "Real estate strategy, analytics & product",
+  tagline: "I turn complex real estate, valuation, and portfolio questions into clear recommendations, useful tools, and coordinated execution.",
   githubUrl: "https://github.com/willw-builds",
 
   about: [
-    "I’m interested in the space where product thinking, design, and technology meet. I like turning loosely formed ideas into clear, useful experiences that people can actually try.",
-    "Right now, I’m building small web and AI projects to sharpen my craft, learn faster, and develop a point of view through practice.",
-    "This portfolio is a living record of that process. As the work grows, the story here will grow with it.",
+    "I’m a project and strategy professional with eight years of experience across real estate, valuation, analytics, and cross-functional delivery. I like work that starts with a complicated question and ends with a clear recommendation, a useful tool, or a better process.",
+    "My background includes valuation and portfolio management at Revantage, real estate strategy and transactions work at EY-Parthenon, and valuation analytics at Popp Hutcheson. I also spent six months at Equifax working on capital markets data products, commercial pricing, data governance, and external data partnerships.",
+    "I’m strongest when the work calls for financial analysis, stakeholder coordination, executive communication, and steady follow-through. My toolkit includes advanced Excel, SQL, Power BI, Bloomberg, and AI automation tools including ChatGPT and Codex, Gemini, Claude Code, and Microsoft Copilot.",
+    "I hold an MS in Computer Science from Georgia Tech, an MS in Finance and Real Estate from Texas A&M, and a BS in Accounting from the University of Wyoming. I’m also a Certified Scrum Product Owner and hold Google credentials in analytics and generative AI.",
   ],
 
   experience: [
     {
-      period: "Add dates",
-      organization: "Your most recent organization",
-      role: "Your role or area of focus",
-      summary: "Add one sentence explaining the team, product, or problem space.",
+      period: "Sep 2025 to Feb 2026",
+      organization: "Equifax",
+      role: "Product Manager, Capital Markets and Ignite Product",
+      summary: "A six-month product role supporting capital markets data products used by institutional asset managers.",
       bullets: [
-        "Describe a meaningful outcome, not just a responsibility.",
-        "Add a concrete example of how you worked with others.",
-        "Include a metric when you have one and can support it.",
+        "Supported product lifecycle decisions across commercial pricing, regulatory requirements, and data governance.",
+        "Coordinated with third-party data providers and external partners, including ICE and the Federal Reserve, and presented recommendations, risks, and next steps to senior management.",
       ],
-      placeholder: true,
     },
     {
-      period: "Add dates",
-      organization: "An earlier chapter",
-      role: "Previous role, education, or independent work",
-      summary: "Use this space to make your path understandable to someone meeting you for the first time.",
-      bullets: ["What did you learn here?", "What changed because of your work?"],
-      placeholder: true,
+      period: "Feb 2023 to Feb 2025",
+      organization: "Revantage, a Blackstone company",
+      role: "Senior Associate, Portfolio Management and Technical Analytics",
+      summary: "Supported valuation and portfolio management for private real estate investment vehicles, using analytics to inform investment decisions.",
+      bullets: [
+        "Modeled expense allocations and portfolio profitability to support budget-conscious real estate and investment decisions.",
+        "Translated complex portfolio information into recommendations on fund structures and the rationalization of individual sub-funds for investment committees.",
+        "Partnered with training and cross-functional teams to create investment content and reporting materials for print and digital delivery.",
+        "Represented the analytics team with senior stakeholders, providing financial guidance and resolving follow-up questions.",
+      ],
+    },
+    {
+      period: "Aug 2021 to Feb 2023",
+      organization: "EY-Parthenon",
+      role: "Senior Consultant, Strategy and Transactions",
+      summary: "Advised clients on real estate strategy and corporate real estate topics, turning complex needs into practical recommendations.",
+      bullets: [
+        "Conducted market and competitive research to identify opportunities for financial institutions to move faster, operate more efficiently, and improve the customer experience.",
+        "Managed prioritization and stakeholder alignment across business, technical, and compliance teams on transformation roadmaps.",
+        "Connected analytical findings to clear strategic choices and executable next steps.",
+      ],
+    },
+    {
+      period: "Jul 2018 to Aug 2021",
+      organization: "Popp Hutcheson",
+      role: "Real Estate Valuation Consultant",
+      summary: "Built valuation analytics and reporting systems that helped clients plan, forecast, and make better real estate decisions.",
+      bullets: [
+        "Built real estate investment forecasting analytics in Power BI, contributing to a 5% improvement in client retention.",
+        "Led stakeholder conversations and user research to understand complex analytical needs and improve the usefulness of client deliverables.",
+        "Created automated reporting infrastructure and forecasting dashboards for planning and ongoing analytical support.",
+      ],
+    },
+  ],
+
+  credentials: [
+    {
+      label: "Education",
+      items: [
+        "MS, Computer Science · Georgia Tech · 2023 · GPA 3.8/4.0",
+        "MS, Finance and Real Estate · Texas A&M · 2018",
+        "BS, Accounting · University of Wyoming · 2017",
+      ],
+    },
+    {
+      label: "Credentials",
+      items: [
+        "Certified Scrum Product Owner (CSPO)",
+        "Google Analytics",
+        "Google Generative AI Leader",
+      ],
+    },
+    {
+      label: "Core toolkit",
+      items: [
+        "Advanced Excel, SQL, Power BI, PowerPoint, Bloomberg",
+        "Financial analysis, forecasting, and market research",
+        "Stakeholder management, vendor coordination, and executive reporting",
+      ],
     },
   ],
 
