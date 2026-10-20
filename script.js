@@ -14,20 +14,10 @@ document.querySelector("#about-copy").innerHTML = content.about.map((paragraph) 
 
 document.querySelector("#experience-list").innerHTML = content.experience
   .map((item) => `
-    <article class="timeline-item reveal${item.placeholder ? " is-placeholder" : ""}">
-      <div class="timeline-meta"><span>${item.period}</span><strong>${item.organization}</strong></div>
-      <div class="timeline-detail">
-        <h3>${item.role}</h3><p>${item.summary}</p>
-        <ul>${item.bullets.map((bullet) => `<li>${bullet}</li>`).join("")}</ul>
-      </div>
-    </article>`)
-  .join("");
-
-document.querySelector("#credentials-list").innerHTML = content.credentials
-  .map((group) => `
-    <article class="credential-card reveal">
-      <p>${group.label}</p>
-      <ul>${group.items.map((item) => `<li>${item}</li>`).join("")}</ul>
+    <article class="experience-card reveal">
+      <p class="experience-label">${item.label}</p>
+      <h3>${item.title}</h3>
+      <p>${item.summary}</p>
     </article>`)
   .join("");
 
