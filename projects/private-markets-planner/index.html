@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive private markets pacing and return-metrics prototype by Will W." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/project.css?v=1" />
+    <link rel="stylesheet" href="planner.css?v=1" />
+    <script src="planner.js?v=1" defer></script>
+    <title>Private Markets Portfolio Planner | Will W.</title>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="back-link" href="../../index.html#projects">← Back to portfolio</a>
+      <span class="prototype-pill">Trial prototype</span>
+    </header>
+
+    <main>
+      <section class="project-hero">
+        <div>
+          <p class="eyebrow">Portfolio workflow 03</p>
+          <h1>Private Markets Portfolio Planner</h1>
+        </div>
+        <div class="hero-note">
+          <p><strong>Connect performance with pacing.</strong> Adjust a synthetic fund profile to see current return measures, remaining commitment exposure, and a simplified forward view.</p>
+          <p class="source-note">All figures are synthetic. This trial focuses on product logic and transparent calculations, not investment recommendations.</p>
+        </div>
+      </section>
+
+      <section class="workspace planner-workspace" aria-label="Private markets portfolio planner">
+        <aside class="control-panel">
+          <div class="panel-head"><div><h2>Fund profile</h2><p>Change an assumption and the portfolio view updates immediately.</p></div></div>
+          <form id="plannerForm">
+            <div class="input-section">
+              <h3>Current position</h3>
+              <div class="input-grid">
+                <div class="field full"><label for="commitment">Original commitment</label><div class="field-wrap"><span>$</span><input id="commitment" name="commitment" type="number" min="1" step="1" value="100" /><span>m</span></div></div>
+                <div class="field"><label for="paidIn">Paid-in capital</label><div class="field-wrap"><span>$</span><input id="paidIn" name="paidIn" type="number" min="0" step="1" value="62" /><span>m</span></div></div>
+                <div class="field"><label for="distributions">Distributions</label><div class="field-wrap"><span>$</span><input id="distributions" name="distributions" type="number" min="0" step="1" value="18" /><span>m</span></div></div>
+                <div class="field full"><label for="nav">Current NAV</label><div class="field-wrap"><span>$</span><input id="nav" name="nav" type="number" min="0" step="1" value="54" /><span>m</span></div></div>
+              </div>
+            </div>
+
+            <div class="input-section">
+              <h3>Forward assumptions</h3>
+              <div class="input-grid">
+                <div class="field"><label for="fundAge">Fund age</label><div class="field-wrap"><input id="fundAge" name="fundAge" type="number" min="1" max="12" step="1" value="5" /><span>yrs</span></div></div>
+                <div class="field"><label for="remainingYears">Remaining life</label><div class="field-wrap"><input id="remainingYears" name="remainingYears" type="number" min="1" max="12" step="1" value="5" /><span>yrs</span></div></div>
+                <div class="field full"><label for="futureCallPct">Expected use of uncalled commitment</label><div class="field-wrap"><input id="futureCallPct" name="futureCallPct" type="number" min="0" max="100" step="5" value="80" /><span>%</span></div></div>
+                <div class="field"><label for="navGrowth">Annual NAV growth</label><div class="field-wrap"><input id="navGrowth" name="navGrowth" type="number" min="-20" max="30" step="0.5" value="6" /><span>%</span></div></div>
+                <div class="field"><label for="distributionYield">Annual distribution rate</label><div class="field-wrap"><input id="distributionYield" name="distributionYield" type="number" min="0" max="100" step="1" value="16" /><span>%</span></div></div>
+              </div>
+            </div>
+            <div class="action-row"><button class="button secondary" id="resetPlanner" type="button">Reset sample</button></div>
+          </form>
+          <div class="callout"><strong>Simplified trial.</strong> The model excludes fees, waterfalls, foreign exchange, subscription lines, and cash-flow timing within each year. The J-curve is illustrative.</div>
+        </aside>
+
+        <div class="results-panel" aria-live="polite">
+          <div class="panel-head"><div><h2>Portfolio view</h2><p id="plannerStatus">Synthetic year-five fund position.</p></div></div>
+          <div class="metric-grid planner-metrics">
+            <div class="metric-card"><span>TVPI</span><strong id="tvpiMetric">1.16x</strong><small>(NAV + distributions) ÷ paid-in</small></div>
+            <div class="metric-card"><span>DPI</span><strong id="dpiMetric">0.29x</strong><small>Distributions ÷ paid-in</small></div>
+            <div class="metric-card"><span>RVPI</span><strong id="rvpiMetric">0.87x</strong><small>NAV ÷ paid-in</small></div>
+            <div class="metric-card"><span>Uncalled</span><strong id="uncalledMetric">$38.0m</strong><small>Commitment less paid-in</small></div>
+            <div class="metric-card"><span>Capital called</span><strong id="calledMetric">62%</strong><small>Paid-in ÷ commitment</small></div>
+            <div class="metric-card featured-metric"><span>Projected TVPI</span><strong id="projectedTvpiMetric">1.00x</strong><small>Base scenario at fund maturity</small></div>
+          </div>
+
+          <section class="result-section">
+            <div class="section-title-row"><div><h3>Illustrative J-curve</h3><p>Cumulative net cash flow based on simplified annual calls and distributions.</p></div><div class="chart-legend"><span><i class="legend-line"></i> Net cash flow</span><span><i class="legend-zero"></i> Break-even</span></div></div>
+            <div class="chart-shell">
+              <svg id="jCurveChart" viewBox="0 0 760 310" role="img" aria-labelledby="chartTitle chartDescription">
+                <title id="chartTitle">Illustrative private markets J-curve</title>
+                <desc id="chartDescription">Cumulative net cash flow by fund year.</desc>
+                <g id="chartGrid"></g>
+                <path id="jCurveArea" class="chart-area" d=""></path>
+                <path id="jCurveLine" class="chart-line" d=""></path>
+                <g id="chartPoints"></g>
+                <g id="chartLabels"></g>
+              </svg>
+            </div>
+            <p class="formula-note" id="curveSummary"></p>
+          </section>
+
+          <section class="result-section">
+            <h3>Commitment pacing</h3>
+            <div class="pacing-bar" aria-label="Commitment pacing"><span id="paidBar"></span><span id="plannedBar"></span><span id="reserveBar"></span></div>
+            <div class="pacing-legend">
+              <span><i class="paid-dot"></i><b id="paidLegend">$62.0m</b> paid-in</span>
+              <span><i class="planned-dot"></i><b id="plannedLegend">$30.4m</b> planned calls</span>
+              <span><i class="reserve-dot"></i><b id="reserveLegend">$7.6m</b> remaining reserve</span>
+            </div>
+          </section>
+
+          <section class="result-section">
+            <h3>Scenario comparison</h3>
+            <div class="table-wrap"><table><thead><tr><th>Scenario</th><th>NAV growth</th><th>Distribution rate</th><th>Projected paid-in</th><th>Projected distributions</th><th>Projected TVPI</th></tr></thead><tbody id="scenarioRows"></tbody></table></div>
+            <p class="formula-note">Projected TVPI uses annual periods and liquidates remaining NAV in the final year.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="case-study" aria-labelledby="caseStudyTitle">
+        <div class="case-study-heading">
+          <p class="eyebrow">Product case study</p>
+          <h2 id="caseStudyTitle">Why this trial exists</h2>
+          <p>A small planning tool can reveal more than a static performance report when the user needs to make the next commitment decision.</p>
+        </div>
+        <div class="case-study-grid">
+          <article><span>01</span><h3>User and problem</h3><p>Built for an allocator or portfolio manager who needs a quick view of fund performance, uncalled exposure, and potential future cash demands.</p></article>
+          <article><span>02</span><h3>Product decision</h3><p>The first version asks for nine inputs and keeps every calculation in the browser. It favors an understandable scenario over a detailed institutional model.</p></article>
+          <article><span>03</span><h3>What I left out</h3><p>No fees, waterfall, XIRR, currency conversion, or multi-fund aggregation. Those features add value only after the core pacing view proves useful.</p></article>
+          <article><span>04</span><h3>How I would measure it</h3><p>Track completed scenarios, time to first useful comparison, repeat scenario runs, and whether users can explain the difference between DPI and TVPI afterward.</p></article>
+          <article><span>05</span><h3>What comes next</h3><p>Add CSV cash-flow upload, a commitment calendar, and a multi-fund portfolio view. User interviews would determine which one earns the next build cycle.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="project-footer"><span>Built by Will W. as a product and portfolio strategy trial.</span><a href="../../index.html#projects">Portfolio ↗</a></footer>
+  </body>
+</html>
