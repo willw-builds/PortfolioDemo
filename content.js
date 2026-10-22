@@ -3,7 +3,7 @@
   Replace the clearly marked placeholders as your story and projects grow.
 */
 window.PORTFOLIO_CONTENT = {
-  name: "Will W.",
+  name: "Will Wu",
   status: "Building practical finance tools",
   title: "Portfolio strategy, analytics & product",
   tagline: "I turn complex portfolio, valuation, and financial workflow questions into clear recommendations, useful tools, and coordinated execution.",
