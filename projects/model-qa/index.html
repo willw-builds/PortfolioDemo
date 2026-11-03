@@ -8,25 +8,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../shared/project.css?v=1" />
+    <link rel="stylesheet" href="qa.css?v=1" />
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
     <script src="qa.js?v=2" defer></script>
-    <title>Financial Model QA Agent — Will Wu</title>
+    <title>Financial Model QA Agent | Will Wu</title>
   </head>
   <body>
-    <header class="app-header"><a class="back-link" href="../../index.html#projects">← Back to portfolio</a><span class="prototype-pill">Browser-local prototype</span></header>
+    <header class="app-header"><a class="back-link" href="../../index.html#projects">← Back to portfolio</a><div class="header-actions"><a href="#review-guide">Review guide</a><span class="prototype-pill">Browser-local prototype</span></div></header>
     <main>
       <section class="project-hero">
         <div><p class="eyebrow">Finance workflow 02</p><h1>Financial Model QA Agent</h1></div>
-        <div class="hero-note"><p><strong>Direct attention to the cells most worth reviewing.</strong> The agent applies deterministic spreadsheet checks and explains every finding with cell-level evidence.</p><p class="source-note">Workbooks are parsed locally in your browser. Files are not uploaded, transmitted, or retained.</p></div>
+        <div class="hero-note"><p><strong>A second-pass review for financial models.</strong> Use Excel to trace and edit individual formulas. Use this prototype to scan the full workbook and organize structural anomalies into one review list.</p><p class="source-note">Selecting a workbook is not a network upload. The browser reads it on this device, does not execute macros, and does not retain the file.</p><a class="guide-link" href="#review-guide">Why use this after Excel? ↓</a></div>
       </section>
 
       <section class="workspace" aria-label="Financial model QA workspace">
         <aside class="control-panel">
-          <div class="panel-head"><div><h2>Workbook</h2><p>Use the seeded sample or inspect an `.xlsx`, `.xls`, or `.csv` file up to 5 MB.</p></div></div>
+          <div class="panel-head"><div><h2>Local workbook</h2><p>Use the seeded sample or select an `.xlsx`, `.xls`, or `.csv` file up to 5 MB from this device.</p></div></div>
           <label class="drop-zone" id="dropZone" for="workbookFile">
             <input id="workbookFile" type="file" accept=".xlsx,.xls,.csv" />
-            <strong>Drop a workbook here</strong>
-            <p>Analysis stays on this device. Macros are never executed.</p>
+            <strong>Choose or drop a local workbook</strong>
+            <p>The file stays in this browser tab. Macros are never executed.</p>
             <span class="file-name" id="fileName">No workbook selected</span>
             <small class="formula-note">Selecting a file analyzes it immediately.</small>
           </label>
@@ -42,16 +43,16 @@
               <div class="field full"><label><input class="qa-toggle" type="checkbox" value="percentages" checked /> Percentage magnitude anomalies</label></div>
             </div>
           </div>
-          <div class="callout"><strong>Human review remains essential.</strong> This tool checks model structure; it does not recalculate Excel, validate business assumptions, certify accuracy, or replace professional review.</div>
+          <div class="callout"><strong>Use findings as review prompts.</strong> This tool checks model structure. It does not recalculate Excel, validate business assumptions, certify accuracy, or replace professional review.</div>
         </aside>
 
         <div class="results-panel" aria-live="polite">
           <div class="panel-head"><div><h2>QA findings</h2><p id="analysisSource"><strong>Source:</strong> none selected</p><p id="qaStatus">Load the seeded demo or choose a workbook to begin.</p></div><button class="button secondary" id="exportReport" type="button" disabled>Export report</button></div>
           <div class="qa-summary">
-            <div class="metric-card"><span>Sheets</span><strong id="sheetCount">—</strong><small>Reviewed worksheets</small></div>
-            <div class="metric-card"><span>Formula cells</span><strong id="formulaCount">—</strong><small>Structural review scope</small></div>
-            <div class="metric-card"><span>High priority</span><strong class="negative" id="highCount">—</strong><small>Likely broken calculation</small></div>
-            <div class="metric-card"><span>Review signals</span><strong id="findingCount">—</strong><small>All flagged items</small></div>
+            <div class="metric-card"><span>Sheets</span><strong id="sheetCount">...</strong><small>Reviewed worksheets</small></div>
+            <div class="metric-card"><span>Formula cells</span><strong id="formulaCount">...</strong><small>Structural review scope</small></div>
+            <div class="metric-card"><span>High priority</span><strong class="negative" id="highCount">...</strong><small>Likely broken calculation</small></div>
+            <div class="metric-card"><span>Review signals</span><strong id="findingCount">...</strong><small>All flagged items</small></div>
           </div>
           <section class="result-section"><h3>Issue register</h3><div class="table-wrap"><table><thead><tr><th>Severity</th><th>Sheet</th><th>Cell</th><th>Check</th><th>Evidence</th><th>Suggested review</th></tr></thead><tbody id="issueRows"><tr><td class="empty-state" colspan="6">No model has been analyzed yet.</td></tr></tbody></table></div></section>
           <section class="result-section"><h3>What the agent checks</h3><div class="metric-grid">
@@ -61,6 +62,45 @@
             <div class="metric-card"><span>04</span><strong>Magnitude signals</strong><small>Potential percentage scaling and divide-by-zero issues.</small></div>
           </div></section>
         </div>
+      </section>
+
+      <section class="review-guide" id="review-guide" aria-labelledby="review-guide-title">
+        <div class="guide-intro">
+          <div><p class="eyebrow">Review guide</p><h2 id="review-guide-title">Why use this after Excel?</h2></div>
+          <div class="guide-lead"><p>Excel Formula Auditing is better for tracing precedents, following dependents, evaluating a formula, and correcting a workbook in place. This prototype does a different job: it scans the workbook in one pass and creates a review queue with sheet names, cell references, evidence, and suggested follow-up.</p><p>If your edition of Excel for Windows includes Spreadsheet Inquire, use it. This prototype is most useful as a lightweight second check, a browser option for people without Inquire, or a structured handoff between a model author and reviewer.</p></div>
+        </div>
+
+        <div class="comparison-wrap" role="region" aria-label="Excel and prototype comparison" tabindex="0">
+          <table class="comparison-table">
+            <thead><tr><th>Review need</th><th>Excel</th><th>This prototype</th></tr></thead>
+            <tbody>
+              <tr><td>Trace and edit one formula</td><td>Best choice</td><td>Reports the cell but cannot edit it</td></tr>
+              <tr><td>Scan a full workbook</td><td>Error Checking and Inquire can do this</td><td>Creates one prioritized issue register</td></tr>
+              <tr><td>Understand workbook intent</td><td>Requires the reviewer</td><td>Requires the reviewer</td></tr>
+              <tr><td>Recalculate formulas</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Use without desktop Excel</td><td>Some audit features are limited</td><td>Runs in a modern browser</td></tr>
+              <tr><td>Share review findings</td><td>Depends on the Excel workflow</td><td>Exports a structured review report</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="guide-grid">
+          <article><span>01</span><h3>Run Excel checks first</h3><p>Recalculate the workbook, inspect visible Excel errors, and use Trace Precedents or Trace Dependents when a specific formula looks wrong.</p></article>
+          <article><span>02</span><h3>Select the workbook here</h3><p>The browser reads the selected file into memory and applies the enabled structural checks. The workbook is not sent to a server or saved by this site.</p></article>
+          <article><span>03</span><h3>Review, do not auto-fix</h3><p>Open each flagged cell in Excel and decide whether it is an error or an intentional exception. Hard-codes and pattern changes can be valid.</p></article>
+          <article><span>04</span><h3>Export the review list</h3><p>Use the report to document what was checked, assign follow-up, or discuss the model with another reviewer.</p></article>
+        </div>
+
+        <div class="guide-notes">
+          <article><h3>What it checks today</h3><p>Error tokens, formula gaps, copied-formula pattern changes, suspicious numeric literals, percentage magnitude signals, and direct division by zero.</p></article>
+          <article><h3>What it does not prove</h3><p>A clean report does not mean the model is correct. The prototype cannot confirm valuation logic, forecast assumptions, accounting treatment, data quality, or whether an unusual formula is intentional.</p></article>
+          <article><h3>Planned product direction</h3><p>Finance-specific controls such as sources and uses, debt roll-forwards, cash bridges, forecast transitions, assumptions-sheet linkage, and materiality-based prioritization are not implemented yet.</p></article>
+        </div>
+
+        <details class="privacy-details">
+          <summary>How local processing works</summary>
+          <p>The browser opens the file with its local file API and parses the workbook in memory. This page makes network requests for page assets such as fonts and the spreadsheet parsing library, but the workbook bytes are not included in those requests. The site has no workbook upload endpoint or storage service.</p>
+        </details>
       </section>
     </main>
     <footer class="project-footer"><span>Built by Will Wu as a deterministic, evidence-first QA prototype.</span><a href="../cre-underwriting/index.html">Open the underwriting workbench ↗</a></footer>
