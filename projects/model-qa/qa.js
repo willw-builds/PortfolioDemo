@@ -31,7 +31,7 @@ function activeChecks() { return new Set([...document.querySelectorAll(".qa-togg
 
 function sampleWorkbook() {
   return {
-    name: "Atlas Components — seeded QA sample",
+    name: "Atlas Components: seeded QA sample",
     sourceType: "Seeded demo",
     sheets: [{
       name: "Operating",
@@ -75,7 +75,7 @@ function parseSheetJsWorkbook(workbook, fileName) {
     }
     return { name, rows, originRow: range.s.r, originColumn: range.s.c };
   });
-  return { name: fileName, sourceType: "Uploaded workbook", sheets };
+  return { name: fileName, sourceType: "Local workbook", sheets };
 }
 
 function addFinding(findings, severity, category, sheet, cell, evidence, action) {
@@ -181,12 +181,12 @@ dropZone.addEventListener("dragleave", () => dropZone.classList.remove("is-dragg
 dropZone.addEventListener("drop", (event) => { event.preventDefault(); dropZone.classList.remove("is-dragging"); loadFile(event.dataTransfer.files[0]); });
 document.querySelector("#sampleButton").addEventListener("click", () => {
   currentModel = sampleWorkbook();
-  document.querySelector("#fileName").textContent = "Atlas Components — seeded demo";
+  document.querySelector("#fileName").textContent = "Atlas Components: seeded demo";
   render(inspect(currentModel));
 });
 document.querySelector("#clearButton").addEventListener("click", () => {
   fileInput.value = ""; currentReport = null; currentModel = null; document.querySelector("#fileName").textContent = "No workbook selected"; document.querySelector("#analysisSource").innerHTML = "<strong>Source:</strong> none selected"; document.querySelector("#qaStatus").textContent = "Load the seeded demo or choose a workbook to begin.";
-  ["sheetCount", "formulaCount", "highCount", "findingCount"].forEach((id) => { document.querySelector(`#${id}`).textContent = "—"; });
+  ["sheetCount", "formulaCount", "highCount", "findingCount"].forEach((id) => { document.querySelector(`#${id}`).textContent = "..."; });
   issueRows.innerHTML = `<tr><td class="empty-state" colspan="6">No model has been analyzed yet.</td></tr>`; document.querySelector("#exportReport").disabled = true;
 });
 document.querySelectorAll(".qa-toggle").forEach((toggle) => toggle.addEventListener("change", () => { if (currentModel) render(inspect(currentModel)); }));
